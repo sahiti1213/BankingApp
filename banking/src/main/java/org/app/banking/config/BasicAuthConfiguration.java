@@ -16,9 +16,9 @@ public class BasicAuthConfiguration
       throws Exception {
         auth
           .inMemoryAuthentication()
-          .withUser("user")
-          .password("password");
-          //.roles("USER");
+          .withUser("user").password("{noop}password").roles("USER");
+        //.and()
+       // .withUser("admin").password("{noop}password").roles("ADMIN");
     }
  
     @Override
@@ -29,7 +29,7 @@ public class BasicAuthConfiguration
           .antMatchers("/login").permitAll()
           .anyRequest()
           .authenticated()
-          .and()
+          .and().formLogin().and()
           .httpBasic();
     }
 }
